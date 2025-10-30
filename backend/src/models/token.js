@@ -38,11 +38,6 @@ const AppointTokenSchema = new mongoose.Schema({
         required: true,
         default: false
     },
-    type: {
-        type: String,
-        required: true,
-        enum: ['APPT_ENTRY', 'SERVICE_QUEUE', 'TELE_CONSULT'] // Example types
-    },
     issued_at: {
         type: Date,
         default: Date.now
