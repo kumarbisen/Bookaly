@@ -5,7 +5,7 @@ import {Text,View} from 'react-native'
 const App =()=>{
   return(
     <View>
-      <Text> App</Text>
+      <Text> App ka base code</Text>
     </View>
   )
 }
