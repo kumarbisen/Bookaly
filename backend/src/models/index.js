@@ -1,6 +1,6 @@
-import {Customer,Admin,Provider} from '.user.js'
+import {Customer,Admin,Provider} from './user.js'
 import Counter from './counter.js'
-import AppointToken from './token.js'
+import Token from './token.js'
 
 
 export{
@@ -8,6 +8,7 @@ export{
     Admin,
     Provider,
     Counter,
-    AppointToken
+    Token
 
 }
+

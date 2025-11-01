@@ -53,11 +53,6 @@ const providerSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
     },
-    type:{
-        type:String,
-        required:true,
-        enum:["Hospital","Salon","Dairy","Diagnostic Lab","Clinic","Service Center"]
-    },
     contactd_info:{
         type:Object,
         // Using Object for flexible storage of address,Email,social handle etc

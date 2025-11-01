@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 
 
+
 const AppointTokenSchema = new mongoose.Schema({
     
     token_id: {
@@ -70,4 +71,5 @@ const AppointTokenSchema = new mongoose.Schema({
     ]
 });
 
-export const AppointTokenModel = mongoose.model('AppointToken', AppointTokenSchema);
+export const Token = mongoose.model('Token', AppointTokenSchema);
+export default Token;

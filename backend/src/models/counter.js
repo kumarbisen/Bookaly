@@ -12,4 +12,5 @@ const CounterSchema = new mongoose.Schema({
     }
 })
 
-export const CounterModel = mongoose.model('Counter',CounterSchema)
+export const Counter = mongoose.model('Counter',CounterSchema)
+export default Counter;
