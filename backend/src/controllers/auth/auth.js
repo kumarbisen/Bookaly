@@ -89,10 +89,24 @@ export const refreshToken = async(req,reply)=>{
 
         if(decoded.role === "Customer"){
             user = await Customer.findById(decoded.userId)
-        }else if(
-            
-        )
-        
+        }else if (decoded.role === "Provider"){
+            user = await Provider.findById(decoded.userId);
+        } else {
+            return reply.status(403).send({message:"Invalid Role"})
+        }
+
+        if(!user){
+            return reply.status(403).send({message: "User not found"})
+        }
+
+    
+        const { accessToken, refreshToken: newRefreshToken } = generateTokens(user);
+
+        return reply.send({
+            message:"Token Refreshed",
+            accessToken,
+            refreshToken: newRefreshToken,
+        });
     } catch (error) {
         if(error && error.name === 'TokenExpiredError'){
             // 401 Unauthorized
@@ -101,4 +115,31 @@ export const refreshToken = async(req,reply)=>{
         // 403 Forbidden
         return reply.status(403).send({message:'Invalid Refresh Token'})
     }
+}
+
+
+
+
+export const fetchUser =  async(req, reply)=>{
+        try {
+            const {userId, role} = req.user;
+            let user;
+            if(role === "Customer"){
+                user = await Customer.findById(userId);
+            }else if(role === "Provider"){
+                        user = await Provider.findById(userId)
+            }else{
+                return reply.status(403).send({message:"Invalid Role"})
+            }
+
+            if(!user){
+                return reply.status(404).send({message : "User not found"});
+            }
+
+            return reply.send({
+                message: "User fetched sucessfully",
+            })
+        } catch (error) {
+            return reply.status(500).send({message: "An error occured",error })
+        }
 }

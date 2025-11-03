@@ -26,6 +26,8 @@ const customerSchema = new mongoose.Schema({
         default:Date.now
     }
 },{
+    // here you can specified schema collection if you want it uppercase
+    // {collection:'Customer'}
         timestamps:false
     })
 
@@ -58,6 +60,7 @@ const providerSchema = new mongoose.Schema({
         // Using Object for flexible storage of address,Email,social handle etc
         default:{}
     }
+
 })
 
 
