@@ -49,7 +49,7 @@ const CustomerLogin = () => {
         <View style={styles.btn}>
             <CustomButton
               title="Next"
-              onPress={() => navigate('OTPVerification')}
+              onPress={() => navigate('Customerdashboard')}
               disabled={false}
               loading={false}
               style={{height:50}}
