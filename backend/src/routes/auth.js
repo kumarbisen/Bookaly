@@ -1,8 +1,7 @@
 import {
     fetchUser,
     loginCustomer,
-    LoginCustomer,
-    LoginProvider,
+    loginProvider,
     refreshToken
 } from '../controllers/auth/auth.js'
 import {updateUser} from '../controllers/tracking/tracking.js'
@@ -11,7 +10,7 @@ import {verifyToken} from '../middleware/auth.js'
 export const authRoutes = async(fastify,options)=>{
 
         fastify.post("/customer/login",loginCustomer)
-        fastify.post("/provider/login",loginCustomer)
+        fastify.post("/provider/login",loginProvider)
         fastify.post("/refresh-token",refreshToken)
         fastify.get("/user",{preHandler:[verifyToken]},fetchUser)
         fastify.post("/user",{preHandler:[verifyToken]},updateUser)

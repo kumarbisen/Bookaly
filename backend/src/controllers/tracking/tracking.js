@@ -23,7 +23,7 @@ export const updateUser = async(req, reply)=>{
 
         const updatedUser = await UserModel.findByIdAndUpdate(
             userId,
-            {$set: updateData},
+            {$set: updateData},// data which you update
             {new: true , runValidators:true}
         )
 

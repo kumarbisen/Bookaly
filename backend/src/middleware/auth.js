@@ -1,11 +1,10 @@
 import jwt from "jsonwebtoken"
 
 
-export const verifytoken = async(req,reply)=>{
+export const verifyToken = async(req,reply)=>{
     try {
         const authHeader = req.headers['authorization'];
         // Bearer is a type of authorization scheme used in the HTTP Authorization header.
-        // It tells the server what kind of token is being sent.
         if(!authHeader || !authHeader.startsWith("Bearer")){
             return reply.status(401).send({message:'Access token required'})
         }

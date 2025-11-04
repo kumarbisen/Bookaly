@@ -31,8 +31,16 @@ const AppointTokenSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: 'Completed',
-        enum: [ 'Completed', 'Cancelled']
+        enum: [ 'Completed', 'Cancelled','Pending']
     },
+
+    // A snapshot of the booking_fee at the time of creation
+    fee:{
+        type:Number,
+        required:true,
+        default:0
+    },
+
 
     is_paid: {
         type: Boolean,
@@ -59,7 +67,9 @@ const AppointTokenSchema = new mongoose.Schema({
         unique: true,
         // Always hide this secure key unless explicitly requested
         select: false 
-    }
+    },
+    razorpay_order_id: { type: String, trim: true, select: false },
+    razorpay_payment_id: { type: String, trim: true, select: false }
 }, { 
     
     indexes: [

@@ -1,5 +1,5 @@
-import { decode } from 'jsonwebtoken';
-import jwt from JsonWebToken
+
+import jwt from 'jsonwebtoken'
 import {Customer,Provider} from '../../models/user.js'
 import "dotenv/config";
 
@@ -49,12 +49,12 @@ export const loginCustomer = async(req,reply)=>{
     }
 }
 
-export const loginprovider = async(req,reply)=>{
+export const loginProvider = async(req,reply)=>{
     try {
     //    Test 01
-        auth = (email || phone);
-        const {auth ,password} = req.body;
-        const provider = await Provider.findOne({auth});
+        // auth = (email || phone);
+        const {phone,password} = req.body;
+        const provider = await Provider.findOne({phone});
 
         if(!provider){
             return reply.status(404).send({message: "Provider is not found in database"});

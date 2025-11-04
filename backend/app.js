@@ -4,6 +4,7 @@ import fastify from 'fastify';
 import {PORT} from "./src/config/config.js"
 import fastifySocketIO from 'fastify-socket.io';
 import { admin, buildAdminRouter } from './src/config/setup.js';
+import { registerRoutes } from "./src/routes/index.js"
 
 
 const start = async () => {

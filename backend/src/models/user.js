@@ -20,7 +20,6 @@ const customerSchema = new mongoose.Schema({
     ...userSchema.obj,
     phone:{type:Number, required:true, unique:true},
     role:{type:String, enum: ["Customer"], default:"Customer"},
-    name:{type:String, trim:true},
     created_at:{
         type:Date,
         default:Date.now
@@ -48,7 +47,12 @@ const providerSchema = new mongoose.Schema({
     password:{type:String, required:true},
     phone:{type:Number, required:true},
     role:{type:String,enum:["Provider"],default:"Provider"},
-    name:{type:String,required:true,trim:true},
+    booking_fee: {
+        type: Number,
+        required: true,
+        default: 0,
+        min: 0
+    },
     provider_id: {
         type: String,
         required:true,
