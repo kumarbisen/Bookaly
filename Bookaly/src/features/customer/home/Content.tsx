@@ -2,11 +2,11 @@ import React from 'react'
 import {Text,View} from 'react-native'
 
 
-const Customerdashboard =()=>{
+const Content =()=>{
     return(
         <View>
-            <Text> Customerdashboard</Text>
+            <Text> Content</Text>
         </View>
     )
 }
-export default Customerdashboard;
+export default Content;

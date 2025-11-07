@@ -7,7 +7,7 @@ import { navigationRef } from '@utils/NavigationUtils';
 import React from 'react'
 import LandingScreen from '@features/auth/LandingScreen';
 import OTPVerification from '@features/auth/OTPVerification';
-import Customerdashboard from '@features/dashboard/Customerdashboard';
+import Customerdashboard from '@features/customer/home/Customerdashboard';
 
 
 const Stack = createNativeStackNavigator();

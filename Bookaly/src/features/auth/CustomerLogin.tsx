@@ -37,7 +37,7 @@ const CustomerLogin = () => {
             <TextInput
               style={styles.phoneInput}
               maxLength={10}
-              cursorColor={Colors.primary_light}
+              cursorColor={Colors.primary}
               keyboardType="numeric"
               placeholder="7514885749"
               placeholderTextColor="#CCC"
@@ -63,7 +63,7 @@ export default CustomerLogin;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: Colors.secondary,
   },
   content: {
     flex: 1,
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#000',
     paddingHorizontal: 15,
+    backgroundColor:"#fff",
     paddingVertical: 12,
   },
   btn:{
