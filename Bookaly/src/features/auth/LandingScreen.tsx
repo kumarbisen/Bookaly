@@ -12,7 +12,7 @@ const LandingScreen = () => {
     <View style={styles.container}>
         <View style={styles.provider} >
           <Icon
-            onPress={()=> navigate('ProviderLogin')}
+            onPress={()=> navigate('ProviderHome')}
             name="storefront-outline"
             color={Colors.primary}
             size={RFValue(35)}

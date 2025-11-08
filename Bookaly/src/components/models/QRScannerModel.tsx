@@ -8,6 +8,7 @@ import {
   useCameraDevice,
 } from 'react-native-vision-camera';
 
+// Always use Loading State to Prevent Error from Camera Permissions
 interface QRScannerModelProps {
   visible: boolean;
   onClose: () => void;
@@ -70,7 +71,7 @@ const QRScannerModel: FC<QRScannerModelProps> = ({ visible, onClose }) => {
                 />
               </View>
             ) : (
-              <View  >
+              <View >
                 <Camera
                   style={styles.camera}
                   isActive={visible}

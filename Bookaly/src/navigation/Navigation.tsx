@@ -7,7 +7,10 @@ import { navigationRef } from '@utils/NavigationUtils';
 import React from 'react'
 import LandingScreen from '@features/auth/LandingScreen';
 import OTPVerification from '@features/auth/OTPVerification';
-import Customerdashboard from '@features/customer/home/Customerdashboard';
+
+import Home from '@features/provider/dashboard/Home';
+import Customerdashboard from '@features/customer/dashboard/Customerdashboard';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -26,6 +29,7 @@ const Navigation =()=>{
             <Stack.Screen name='ProviderLogin' component={ProviderLogin}></Stack.Screen>
             <Stack.Screen name='OTPVerification' component={OTPVerification}></Stack.Screen>
             <Stack.Screen name='Customerdashboard' component={Customerdashboard}></Stack.Screen>
+            <Stack.Screen name='ProviderHome' component={Home}></Stack.Screen>
 
 
         </Stack.Navigator>
