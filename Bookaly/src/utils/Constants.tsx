@@ -15,6 +15,8 @@ export enum Fonts {
     Bold = 'Okra-ExtraBold',
 }
 
+export const multiColor = ['#3ebcdc', '#66a0aeff', '#93b3bbff', '#4c7680ff', '#3ebcdc', '#2a535dff']
+
 export const lightColors = [
     'rgba(255,255,255,1)',
     'rgba(255,255,255,0.9)',

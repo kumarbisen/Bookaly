@@ -1,7 +1,8 @@
 import CustomButton from '@components/UI/CustomButton';
 import { Colors } from '@utils/Constants';
 import { navigate } from '@utils/NavigationUtils';
-import React from 'react';
+import React, { useState } from 'react';
+import {customerLogin} from '../../service/authService'
 import {
   Button,
   StyleSheet,
@@ -14,6 +15,25 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const CustomerLogin = () => {
+  const [loading,setLoading]= useState(false);
+  const [phonenumber,setPhonenumber]= useState('')
+  
+
+  const handleAuth = async() =>{
+    setLoading(true)
+    try {
+      customerLogin(phonenumber)
+      navigate('Customerdashboard')
+    } catch (error) {
+      console.log("Login Failed");
+    }finally{
+      setLoading(false)
+    }
+
+
+    
+  }
+
   return (
     <>
       <SafeAreaView />
@@ -36,10 +56,12 @@ const CustomerLogin = () => {
             </View>
             <TextInput
               style={styles.phoneInput}
-              maxLength={10}
+              onChangeText={text => setPhonenumber(text.slice(0, 10))}
+             
+              value={phonenumber}
               cursorColor={Colors.primary}
               keyboardType="numeric"
-              placeholder="7514885749"
+              placeholder="7371015156"
               placeholderTextColor="#CCC"
             />
           </View>
@@ -49,9 +71,9 @@ const CustomerLogin = () => {
         <View style={styles.btn}>
             <CustomButton
               title="Next"
-              onPress={() => navigate('Customerdashboard')}
+              onPress={handleAuth}
               disabled={false}
-              loading={false}
+              loading={loading}
               style={{height:50}}
             />
           </View>

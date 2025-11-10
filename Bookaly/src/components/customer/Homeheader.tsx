@@ -15,17 +15,21 @@ const Homeheader =()=>{
     }
     return(
         <View style={styles.mainContainer}>
+            <View>
             <SafeAreaView/>
             <View style={[styles.flexRowBetween,styles.container]}>
             <Image style={styles.logo} source={require('@assets/images/logo.png')} />
             <TouchableOpacity onPress={click} style={styles.scan}>
                 <Icon name='qrcode-scan' size={24} color={Colors.primary} iconFamily='MaterialCommunityIcons'/>
             </TouchableOpacity>
+            </View>
+            
             {isVisible && (
                 <QRScannerModel 
                 visible={isVisible}
                 onClose={()=> setIsVisible(false)}/>
             )}
+            
             
             </View>
         </View>
@@ -39,7 +43,8 @@ const styles = StyleSheet.create({
     flexRowBetween: {
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        zIndex:4
     },
     container: {
         padding: 5,

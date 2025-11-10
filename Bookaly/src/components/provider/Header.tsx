@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
-import {Image,  StyleSheet,  Text,TouchableOpacity,View} from 'react-native'
+import {Alert, Image,  StyleSheet,  Text,TouchableOpacity,View} from 'react-native'
 
 import Icon from '../global/Icon';
 
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import {  SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from '@utils/Constants';
 import { screenHeight, screenWidth } from '@utils/Scaling';
+import QRGereratorModel from '@components/models/QRGereratorModel';
+import { navigate } from '@utils/NavigationUtils';
 
 
 
 const Header =()=>{
    const [isVisible, setIsVisible] = useState(false);
    
-   function onClick(){
-    setIsVisible(true)
+const onClick = ()=>{
+        setIsVisible(true)
+      
    }
     return(
         
@@ -34,6 +37,13 @@ const Header =()=>{
                     style={styles.profile}/>
                 </TouchableOpacity>
 
+                {isVisible && (
+                    <QRGereratorModel
+                    visible={isVisible}
+                    onClose={()=> setIsVisible(false)}/>
+                )}
+
+                
                
             </View>    
         </View>
@@ -52,12 +62,7 @@ const styles = StyleSheet.create({
         padding: 10,
         zIndex: 4,
     },
-    curve: {
-        position: 'absolute',
-        bottom: -screenHeight * 0.09,
-        zIndex: 3,
-        width: '100%',
-    },
+    
     logo: {
         width: screenWidth * 0.4,
         height: screenHeight * 0.048,

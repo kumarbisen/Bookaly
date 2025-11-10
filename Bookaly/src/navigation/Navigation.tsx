@@ -8,8 +8,8 @@ import React from 'react'
 import LandingScreen from '@features/auth/LandingScreen';
 import OTPVerification from '@features/auth/OTPVerification';
 
-import Home from '@features/provider/dashboard/Home';
-import Customerdashboard from '@features/customer/dashboard/Customerdashboard';
+import Home from '@features/provider/Home';
+import Customerdashboard from '@features/customer/Customerdashboard';
 
 
 

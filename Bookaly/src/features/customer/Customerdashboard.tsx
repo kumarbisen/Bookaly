@@ -3,7 +3,7 @@ import BottomTab from '@components/global/BottomTab';
 import { Colors } from '@utils/Constants';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import Content from './Content';
+import Content from '../../components/customer/Content';
 
 const Customerdashboard = () => {
   return (
