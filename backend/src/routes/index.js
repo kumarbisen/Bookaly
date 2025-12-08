@@ -1,7 +1,7 @@
 import {authRoutes} from './auth.js'
 import { tokenRoutes } from './token.js';
 
-const prefix = "/v1"
+const prefix = "/api"
 
 export const registerRoutes = async(fastify)=>{
     fastify.register(authRoutes,{prefix:prefix});

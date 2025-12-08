@@ -1,6 +1,6 @@
 import CustomButton from '@components/UI/CustomButton';
 import { Colors } from '@utils/Constants';
-import { navigate } from '@utils/NavigationUtils';
+import { navigate, resetAndNavigate } from '@utils/NavigationUtils';
 import React, { useState } from 'react';
 import {customerLogin} from '../../service/authService'
 import {
@@ -12,6 +12,8 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 
 const CustomerLogin = () => {
@@ -23,7 +25,7 @@ const CustomerLogin = () => {
     setLoading(true)
     try {
       customerLogin(phonenumber)
-      navigate('Customerdashboard')
+      resetAndNavigate('Customerdashboard')
     } catch (error) {
       console.log("Login Failed");
     }finally{
@@ -38,7 +40,18 @@ const CustomerLogin = () => {
     <>
       <SafeAreaView />
       <View style={styles.container}>
+
+        <View style={styles.provider} >
+                    <Icon
+                      onPress={()=> navigate('ProviderHome')}
+                      name="storefront-outline"
+                      color={Colors.primary}
+                      size={RFValue(35)}
+                    />
+                  </View>
         <View style={styles.content}>
+
+           
           <View>
             <Text style={styles.title}>
               Welcome! What's your mobile number?
@@ -71,8 +84,8 @@ const CustomerLogin = () => {
         <View style={styles.btn}>
             <CustomButton
               title="Next"
-              onPress={handleAuth}
-              disabled={false}
+              onPress={() => handleAuth()}
+              disabled={phonenumber?.length !=10}
               loading={loading}
               style={{height:50}}
             />
@@ -139,5 +152,15 @@ const styles = StyleSheet.create({
   btn:{
     padding:15,
     marginBottom:20
-  }
+  },
+  provider: {
+    height: 70,
+    width: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: '100%',
+    alignSelf: 'flex-end',
+    margin: 30,
+  },
 });

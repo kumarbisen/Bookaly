@@ -22,7 +22,7 @@ interface QRGereratorModelProps{
 const QRGereratorModel:FC<QRGereratorModelProps> =({visible,onClose})=>{
 
     const [loading,setLoading]= useState(false)
-    const [qrValue,setQRValue] = useState('vivek')
+    const [qrValue,setQRValue] = useState('clinic123')
     const shimmerTranslateX = useSharedValue(-300)
 
 

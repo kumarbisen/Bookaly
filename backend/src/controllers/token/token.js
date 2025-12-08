@@ -179,5 +179,8 @@ export const validateToken = async(req, reply)=>{
 
 
 // i have to write a function for fetch token to update it in provider dashboard and get it using get routes
-
+export const fetchtoken = async(req,reply) =>{
+    console.log("fetching data from database");
+    
+}
 

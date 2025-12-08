@@ -1,4 +1,7 @@
+import BookToken from '@features/customer/BookToken';
+import  { collectData } from '@state/scanStore';
 import { Colors } from '@utils/Constants';
+import { navigate } from '@utils/NavigationUtils';
 import { screenHeight, screenWidth } from '@utils/Scaling';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Image, Modal, StyleSheet, Text, View } from 'react-native';
@@ -19,7 +22,7 @@ const QRScannerModel: FC<QRScannerModelProps> = ({ visible, onClose }) => {
   const device = useCameraDevice('back') as any;
   const [codeFound, setCodeFound] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const {scanedData} = collectData()
   useEffect(() => {
     const checkPermission = async () => {
       const cameraPermission = await Camera.requestCameraPermission();
@@ -31,6 +34,8 @@ const QRScannerModel: FC<QRScannerModelProps> = ({ visible, onClose }) => {
   const handleScan = (data: any) => {
     // Here we have to connect with https
     console.log('[QRScannerModal] handleScan raw data:', data);
+    // scanedData(data)
+    navigate('BookToken',{mydata:data})
   };
 
   const codeScanner = useMemo<CodeScanner>(
@@ -38,6 +43,8 @@ const QRScannerModel: FC<QRScannerModelProps> = ({ visible, onClose }) => {
       codeTypes: ['qr', 'codabar'],
       onCodeScanned: codes => {
         if (codeFound) {
+          
+          onClose()
           return console.log('Code Found');
         }
         console.log(`Scanned ${codes?.length} code`);
@@ -51,6 +58,8 @@ const QRScannerModel: FC<QRScannerModelProps> = ({ visible, onClose }) => {
     }),
     [codeFound],
   );
+
+  
 
   return (
     <View>
