@@ -4,7 +4,7 @@ interface scanDataprops{
     // A Function (To execute a specific action which takes this data parameters)
     scanedData:(data:string)=> void;
     // To hold data
-    providerId:any
+    providerId:string;
     
 }
 
@@ -12,7 +12,7 @@ const scanContext = createContext<scanDataprops | undefined >(undefined);
 export const collectData = (): scanDataprops =>{
     const context = useContext(scanContext);
     if(!context){
-        throw new Error('some sort of error');
+        throw new Error('Context not found');
         
     }
     return context;
@@ -21,7 +21,7 @@ export const collectData = (): scanDataprops =>{
 
 const ScanStore:FC<{children:React.ReactNode}> =({children})=>{
         
-    const [providerId,setProviderId] = useState<any>(null)
+    const [providerId,setProviderId] = useState<string>('')
 
     const scanedData= useCallback(
         (data:string)=>{
@@ -29,14 +29,15 @@ const ScanStore:FC<{children:React.ReactNode}> =({children})=>{
             console.log(providerId);
             
 
-        },[providerId,setProviderId]
+        },[]
 
     )
 
     return (
         <scanContext.Provider
         value={{
-            scanedData,providerId
+            scanedData
+            ,providerId
         }}
         >
             {children}

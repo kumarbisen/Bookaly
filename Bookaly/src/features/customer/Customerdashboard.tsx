@@ -2,12 +2,13 @@ import Homeheader from '@components/customer/Homeheader';
 import BottomTab from '@components/global/BottomTab';
 import { Colors } from '@utils/Constants';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Content from '../../components/customer/Content';
 
 const Customerdashboard = () => {
   return (
     <View style={styles.container}>
+    <StatusBar barStyle="light-content" backgroundColor="#d9e1e4" />
     <Homeheader />
     <Content />
     <BottomTab/>

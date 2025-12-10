@@ -1,4 +1,7 @@
-import React from 'react';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { collectData } from '@state/scanStore';
+
+import React, { FC, use, useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,64 +14,63 @@ import {
 } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from '@components/global/Icon';
+import { goBack } from '@utils/NavigationUtils';
+import { Colors } from '@utils/Constants';
+import { booktoken } from '@service/BookingProvider';
 
-export default function BookToken() {
+
+const BookToken = () => {
+  const { providerId } = collectData();
+  // const [loading,setLoading] = useState(true)
+
+  const handleToken=()=>{
+     booktoken(providerId)
+      
+  }
+
+  // useEffect(()=>{
+  //   setLoading(false)
+  // },[loading])
+  
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#1e3a8a" />
-      
-      {/* Header */}
+      <StatusBar barStyle="light-content" backgroundColor="#3ebcdc" />
+
       <View style={styles.header}>
         <View style={styles.headerIconContainer}>
-          <Text style={styles.headerIconText}>H</Text>
+          <TouchableOpacity onPress={() => goBack()}>
+            <Icon
+              name="arrow-back-outline"
+              size={24}
+              color="white"
+              iconFamily="Ionicons"
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.headerTextContainer}>
           <Text style={styles.headerSubtitle}>Share your details with</Text>
-          <Text style={styles.headerTitle}>District Hospital Buxar</Text>
+          <Text style={styles.headerTitle}>{providerId}</Text>
         </View>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        
-        {/* Main Card */}
         <View style={styles.card}>
-          {/* Profile Section */}
           <View style={styles.profileSection}>
             <Image
-              source={{ uri: 'https://via.placeholder.com/150' }} 
+              source={require('@assets/images/user.jpg')}
               style={styles.avatar}
             />
             <View style={styles.profileInfo}>
-              <Text style={styles.name}>Vivek Kumar</Text>
+              <Text style={styles.name}>Dr kunal Clinic </Text>
+              <Text style={styles.label2}>{providerId}</Text>
               <View style={styles.kycContainer}>
-                 <Text style={styles.kycText}>✓ KYC verified</Text>
-              </View>
-
-              <View style={styles.row}>
-                <View style={styles.halfCol}>
-                  <Text style={styles.label}>Year of Birth</Text>
-                  <Text style={styles.value}>27-August-2005</Text>
-                </View>
-                <View style={styles.halfCol}>
-                  <Text style={styles.label}>Gender</Text>
-                  <Text style={styles.value}>Male</Text>
-                </View>
+                <Text style={styles.kycText}>✓ verified</Text>
               </View>
             </View>
           </View>
 
-          {/* Details List */}
           <View style={styles.detailsSection}>
-            <View style={styles.fieldGroup}>
-              <Text style={styles.label}>ABHA Number</Text>
-              <Text style={styles.valueHighlight}>91-6320-4713-5041</Text>
-            </View>
-
-            <View style={styles.fieldGroup}>
-              <Text style={styles.label}>ABHA Address</Text>
-              <Text style={styles.valueHighlight}>73710151560@abdm</Text>
-            </View>
-
             <View style={styles.row}>
               <View style={styles.halfCol}>
                 <Text style={styles.label}>Mobile Number</Text>
@@ -83,60 +85,43 @@ export default function BookToken() {
             <View style={styles.fieldGroup}>
               <Text style={styles.label}>Address</Text>
               <Text style={styles.addressValue}>
-                C/O Arun Kumar Singh village kukur bhuka post nawanagar Kukur Bhuka Nawanagar
+                C/O Arun Kumar Singh village kukur bhuka post nawanagar Kukur
+                Bhuka Nawanagar
               </Text>
             </View>
-
-            <View style={styles.row}>
-              <View style={styles.thirdCol}>
-                <Text style={styles.label}>State</Text>
-                <Text style={styles.value}>BIHAR</Text>
-              </View>
-              <View style={styles.thirdCol}>
-                <Text style={styles.label}>District</Text>
-                <Text style={styles.value}>BUXAR</Text>
-              </View>
-              <View style={styles.thirdCol}>
-                <Text style={styles.label}>Pin Code</Text>
-                <Text style={styles.value}>-</Text>
-              </View>
-            </View>
           </View>
         </View>
 
-        {/* Receiver Details */}
-        <Text style={styles.sectionHeader}>Receiver's details</Text>
+        <Text style={styles.sectionHeader}>User's details</Text>
         <View style={styles.receiverCard}>
           <View style={styles.receiverRow}>
-            <Text style={styles.receiverLabel}>Counter-id - <Text style={styles.receiverValue}>1</Text></Text>
-            <Text style={styles.receiverLabel}>HP-id/HFR - <Text style={styles.receiverValue}>IN1010000213</Text></Text>
+            <Text style={styles.receiverLabel}>
+              TTN - <Text style={styles.receiverValue}>15th Token</Text>
+            </Text>
           </View>
-          
-          <View style={styles.receiverRow}>
-             <Text style={styles.receiverLabel}>HIP ID - <Text style={styles.receiverValue}>IN1010000213</Text></Text>
-          </View>
-          
+
           <View style={styles.facilityRow}>
-             <Text style={styles.receiverLabel}>Facility Name - </Text>
-             <Text style={styles.receiverValue}>District Hospital Buxar</Text>
+            <Text style={styles.receiverLabel}>User Name - </Text>
+            <Text style={styles.receiverValue}>Vivek kumar</Text>
           </View>
         </View>
 
-        {/* Buttons */}
+       
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8}>
+          <TouchableOpacity style={styles.primaryButton} onPress={handleToken} activeOpacity={0.2}>
             <Text style={styles.primaryButtonText}>Get Token</Text>
           </TouchableOpacity>
-          
+
           <TouchableOpacity style={styles.secondaryButton} activeOpacity={0.8}>
             <Text style={styles.secondaryButtonText}>Cancel</Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
+
+export default BookToken;
 
 const styles = StyleSheet.create({
   container: {
@@ -144,17 +129,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#f3f4f6',
   },
   header: {
-    backgroundColor: '#1e3a8a',
+    backgroundColor: '#3ebcdc',
     padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: Platform.OS === 'android' ? 40 : 16,
   },
   headerIconContainer: {
-    width: 40,
-    height: 40,
+    width: 50,
+    height: 50,
     backgroundColor: 'rgba(255,255,255,0.1)',
-    borderRadius: 8,
+    borderRadius: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -169,12 +154,12 @@ const styles = StyleSheet.create({
   },
   headerSubtitle: {
     color: '#bfdbfe',
-    fontSize: 12,
+    fontSize: 15,
   },
   headerTitle: {
     color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 10,
+    fontWeight: 'light',
   },
   scrollContent: {
     padding: 16,
@@ -236,6 +221,14 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
+
+    color: '#6b7280',
+    marginBottom: 2,
+  },
+  label2: {
+    fontSize: 12,
+    marginVertical: 10,
+    marginLeft: 5,
     color: '#6b7280',
     marginBottom: 2,
   },
@@ -297,7 +290,7 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   primaryButton: {
-    backgroundColor: '#d95f26',
+    backgroundColor: Colors.primary,
     paddingVertical: 14,
     borderRadius: 6,
     alignItems: 'center',

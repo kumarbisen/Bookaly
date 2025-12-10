@@ -5,7 +5,7 @@ import Razorpay from 'razorpay'
 
 
 
-// Razorpay configuration
+
 const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID;
 const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
 
@@ -22,7 +22,7 @@ if (RAZORPAY_KEY_ID && RAZORPAY_KEY_SECRET) {
 
 export const bookToken =async(req,reply)=>{
     try {
-        const userId = req.user._id;
+        const userId = req.user.userId;
         const {providerPublicId} = req.body;
 
         if(!providerPublicId){
@@ -42,7 +42,7 @@ export const bookToken =async(req,reply)=>{
         const counterId = `${provider._id.toString()}_${today.toISOString().split('T')[0]}`;
 
         // upsert: true creates the counter if it's the first token of the day.
-        const counter = await Counter.findByIdAndDelete(
+        const counter = await Counter.findByIdAndUpdate(
             counterId,
             {$inc: {seq:1}},
             {new:true, upsert:true}
@@ -75,13 +75,17 @@ export const bookToken =async(req,reply)=>{
 
             const freeToken = new Token(newToken);
             await freeToken.save();
+            console.log('free token booked');
             
             
             return reply.code(201).send({
                 message: 'Free token booked successfully!',
                 is_paid: false,
+                // res.data.token.token_id
                 token: freeToken
             });
+            
+            
         }
 
         // Paid Token
@@ -119,13 +123,6 @@ export const bookToken =async(req,reply)=>{
                 pending_token_id: pendingToken._id
             });
         }
-
-
-
-
-
-
- 
     } catch (error) {
         if(error.code === 11000){
             return reply.code(500).send({message:'Failed to generate a token try again'})
@@ -178,9 +175,40 @@ export const validateToken = async(req, reply)=>{
 }
 
 
-// i have to write a function for fetch token to update it in provider dashboard and get it using get routes
-export const fetchtoken = async(req,reply) =>{
-    console.log("fetching data from database");
+
+//for provider
+export const fetchtoken = async(req,reply)=>{
+
+    try {
+        const providerId = req.user.userId
+
+     // get today date normalized to db date
+    const today = new Date();
+    today.setUTCHours(0,0,0,0);
+
+    const tokens = await Token.find({
+        provider_id: providerId,
+        queue_date: today,
+        status:{$inc : ['Completed']}
+        
+    }).sort({token_id:1}) //send the token booked by user in sequence
+    .populate('user_id', 'name phone_number');
+
+    return reply.code(200).send({
+        message:'provider queue retrieved sucessfully',
+        tokens:tokens
+    })
+        
+    } catch (error) {
+        console.error('Error fetching provider queue', error)
+        reply.code(500).send({message: " Internal server error "})
+    }
     
+
+    
+   
+
 }
+
+
 

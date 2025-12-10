@@ -1,4 +1,4 @@
-import BookToken from '@features/customer/BookToken';
+
 import  { collectData } from '@state/scanStore';
 import { Colors } from '@utils/Constants';
 import { navigate } from '@utils/NavigationUtils';
@@ -34,8 +34,9 @@ const QRScannerModel: FC<QRScannerModelProps> = ({ visible, onClose }) => {
   const handleScan = (data: any) => {
     // Here we have to connect with https
     console.log('[QRScannerModal] handleScan raw data:', data);
-    // scanedData(data)
-    navigate('BookToken',{mydata:data})
+    scanedData(data)
+    // navigate('BookToken',{mydata:data})
+    navigate('BookToken')
   };
 
   const codeScanner = useMemo<CodeScanner>(

@@ -68,6 +68,6 @@ const providerSchema = new mongoose.Schema({
 })
 
 
-export const Customer = mongoose.model("Customer",customerSchema);
+export const Customer = mongoose.model("User",customerSchema);
 export const Provider = mongoose.model("Provider",providerSchema);
 export const Admin = mongoose.model("Admin",adminSchema);
