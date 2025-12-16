@@ -50,7 +50,6 @@ const BookToken = () => {
         </View>
         <View style={styles.headerTextContainer}>
           <Text style={styles.headerSubtitle}>Share your details with</Text>
-          <Text style={styles.headerTitle}>{providerId}</Text>
         </View>
       </View>
 

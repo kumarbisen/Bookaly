@@ -22,8 +22,13 @@ if (RAZORPAY_KEY_ID && RAZORPAY_KEY_SECRET) {
 
 export const bookToken =async(req,reply)=>{
     try {
-        const userId = req.user.userId;
-        const {providerPublicId} = req.body;
+        const userId = req.user && req.user.userId;
+        // defensive: ensure body exists before destructuring (GET requests may not have a body)
+        if (!req.body) {
+            return reply.code(400).send({ message: 'Request body is required.' });
+        }
+
+        const { providerPublicId } = req.body;
 
         if(!providerPublicId){
             return reply.code(400).send({message:'Provider Username is required.'})
@@ -135,13 +140,14 @@ export const bookToken =async(req,reply)=>{
 
 export const validateToken = async(req, reply)=>{
     try {
-        const { token_id, queue_date, provider_id, validation_key } = request.body;
+        // use the incoming request body
+        const { token_id, queue_date, provider_id, validation_key } = req.body || {};
 
          if (!token_id || !queue_date || !provider_id || !validation_key) {
             return reply.code(400).send({ message: 'Incomplete token data for validation.' });
         }
 
-        const provider = await Provider.findOne({ provider_id: provider_id.toLowerCase() });
+         const provider = await Provider.findOne({ provider_id: provider_id.toLowerCase() });
          if (!provider) {
             return reply.code(404).send({ message: 'Invalid Provider.' });
         }
@@ -189,7 +195,7 @@ export const fetchtoken = async(req,reply)=>{
     const tokens = await Token.find({
         provider_id: providerId,
         queue_date: today,
-        status:{$inc : ['Completed']}
+        status: 'Completed'
         
     }).sort({token_id:1}) //send the token booked by user in sequence
     .populate('user_id', 'name phone_number');

@@ -16,6 +16,8 @@ export const tokenRoutes = async(fastify,options)=>{
 
 
     fastify.post('/tokens/book', bookToken);
+    
+    fastify.get('/tokens',bookToken);
     fastify.post('/tokens/verify-payment', verifyPayment);
     fastify.post('/tokens/validate', validateToken);
     fastify.get("/tokens/fetch",fetchtoken);
