@@ -12,7 +12,9 @@ import OTPVerification from '@features/auth/OTPVerification';
 import Home from '@features/provider/Home';
 import Customerdashboard from '@features/customer/Customerdashboard';
 import ProfileScreen from '@features/customer/profileScreen';
-import BookedTokenScreen from '@features/customer/BookedTokenScreen';
+import BookedTokenScreen from '@features/customer/Favorate';
+
+import Favorate from '@features/customer/Favorate';
 
 
 
@@ -38,7 +40,7 @@ const Navigation =()=>{
             <Stack.Screen name='profileScreen' component={ProfileScreen} options={{
           animation: 'slide_from_right' // Slides up
         }}></Stack.Screen>
-            <Stack.Screen name='BookedTokenScreen' component={BookedTokenScreen}></Stack.Screen>
+            <Stack.Screen name='Favorate' component={Favorate}></Stack.Screen>
 
 
 

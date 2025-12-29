@@ -73,7 +73,7 @@ const CustomerLogin = () => {
              
               value={phonenumber}
               cursorColor={Colors.primary}
-              keyboardType="numeric"
+              keyboardType="number-pad"
               placeholder="7371015156"
               placeholderTextColor="#CCC"
             />

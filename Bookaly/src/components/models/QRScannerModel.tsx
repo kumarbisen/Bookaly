@@ -1,10 +1,12 @@
 
+import Icon from '@components/global/Icon';
+import CustomHeader from '@components/UI/CustomHeader';
 import  { collectData } from '@state/scanStore';
 import { Colors } from '@utils/Constants';
-import { navigate } from '@utils/NavigationUtils';
+import { goBack, navigate, resetAndNavigate } from '@utils/NavigationUtils';
 import { screenHeight, screenWidth } from '@utils/Scaling';
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { Image, Modal, StyleSheet, Text, View } from 'react-native';
+import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import {
   Camera,
   CodeScanner,
@@ -72,6 +74,9 @@ const QRScannerModel: FC<QRScannerModelProps> = ({ visible, onClose }) => {
         onDismiss={onClose}
       >
         <View style={styles.modelContainer}>
+          <TouchableOpacity style={styles.backicon} onPress={onClose}>
+            <Icon name='arrow-back' size={24} color={Colors.primary} iconFamily='Ionicons'/>
+          </TouchableOpacity>
           <View style={styles.qrContainer}>
             {!device && !hasPermission ? (
               <View>
@@ -108,9 +113,21 @@ const styles = StyleSheet.create({
     height: screenHeight*0.3,
     
   },
+  backicon:{
+    height:50,
+    width:50,
+    justifyContent:'center',
+    alignItems:'center',
+    marginTop:40,
+   marginLeft:20,
+   padding:5,
+   borderRadius:'100%',
+   backgroundColor:'white'
+  },
   modelContainer: {
     flex: 1,
     backgroundColor: Colors.primary_light,
+   
   },
   qrContainer: {
     marginHorizontal: 20,

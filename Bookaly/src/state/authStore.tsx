@@ -20,6 +20,9 @@ export const useAuthStore = create<AuthStore>()(
                     tokenStorage.clearAll && tokenStorage.clearAll();
                 } catch (e) {
                     // ignore storage clear errors
+                    console.log('====================================');
+                    console.log("err",e);
+                    console.log('====================================');
                 }
                 set({ user: null, });
 

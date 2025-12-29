@@ -1,10 +1,11 @@
 import { Colors, Fonts } from '@utils/Constants';
 import { goBack } from '@utils/NavigationUtils';
 import React, { FC } from 'react';
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CustomText from './CustomText';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const CustomHeader: FC<{ title: string; search?: boolean }> = ({
   title,

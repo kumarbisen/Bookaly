@@ -2,7 +2,7 @@ export enum Colors {
     primary = '#3ebcdc',
     primary_light = '#d9e1e4',
     secondary = '#d9e1e473',
-    text = '#363636',
+    text = '#212324c1',
     disabled = '#9197a6',
     border = "#d0d4dc",
     backgroundSecondary = '#f5f6fb'

@@ -18,7 +18,7 @@ export const booktoken=async(providerPublicId:string)=> {
 
 export const fetchTokens = async()=>{
     try{
-        const response = await appAxios.get('/tokens');
+        const response = await appAxios.get('/tokens/book');
         return response.data;
         
     }catch(error){

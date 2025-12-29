@@ -16,11 +16,11 @@ const BottomTab =()=>{
                 iconFamily='Ionicons'
                 />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=> navigate('BookedTokenScreen')}>
+            <TouchableOpacity onPress={()=> navigate('Favorate')}>
                 <Icon 
                 color='#3ebcdc'
                 size={24}
-                name='today-outline'
+                name='bookmark-outline'
                 iconFamily='Ionicons'
                 />
             </TouchableOpacity>
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         elevation: 10,
         
-        
+       
         shadowRadius: 5,
         shadowColor: "#888",
         paddingHorizontal: 25,

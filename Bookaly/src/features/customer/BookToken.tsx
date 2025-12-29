@@ -15,23 +15,24 @@ import {
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from '@components/global/Icon';
-import { goBack } from '@utils/NavigationUtils';
+import { goBack, navigate, push, resetAndNavigate } from '@utils/NavigationUtils';
 import { Colors } from '@utils/Constants';
 import { booktoken } from '@service/BookingProvider';
 
 
 const BookToken = () => {
   const { providerId } = collectData();
-  // const [loading,setLoading] = useState(true)
+  
 
-  const handleToken=()=>{
-     booktoken(providerId)
-      
+  const handleToken=async()=>{
+    try {
+       const res = await booktoken(providerId);
+      navigate('Customerdashboard',{token :res.token})
+    } catch (error) {
+      console.log('Booking error', error);
+    }
   }
 
-  // useEffect(()=>{
-  //   setLoading(false)
-  // },[loading])
   
   return (
     <SafeAreaView style={styles.container}>
