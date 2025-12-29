@@ -14,8 +14,9 @@ import { useRoute } from '@react-navigation/native';
 import Icon from '@components/global/Icon';
 import { booktoken, fetchTokens } from '@service/BookingProvider';
 import { RefreshControl } from 'react-native';
+import { collectData } from '@state/scanStore';
 
-interface tokenData {
+interface tokendata {
   _id?: string;
   token_id: number;
   queue_date: string | Date;
@@ -25,53 +26,42 @@ interface tokenData {
 }
 
 const Content: FC = () => {
-  const [tokens, setTokens] = useState<tokenData[]>([]);
+  const [tokens, setTokens] = useState<tokendata[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  const route: any = useRoute();
+  const { tokenData } = collectData();
 
   const load = async () => {
-    setLoading(true);
-    const incomingToken = route?.params?.token;
+   // Only show the big spinner on the very first load
+    if (tokens.length === 0) setLoading(true); 
     
-if (incomingToken) {
-    setTokens(prevTokens => {
-      // 1. Check if the token already exists in our current state
-      const isDuplicate = prevTokens.some(
-        t => (t._id === incomingToken._id) || (t.token_id === incomingToken.token_id)
-      );
-
-      // 2. If it's new, add it to the top. If not, return the state as is.
-      if (!isDuplicate) {
-        return [incomingToken, ...prevTokens];
-      }
-      return prevTokens;
-    });
+    if (tokenData && Array.isArray(tokenData)) {
+      setTokens([...tokenData]);
+      console.log('Tokens updated:', tokenData);
     }
-
-    setLoading(false)
+    
+    setLoading(false);
   };
+
 
   useEffect(() => {
     load();
-  }, []);
+  }, [tokenData]);
 
   const onRefresh = async () => {
     setRefreshing(true);
-  
+
     await load();
     setRefreshing(false);
   };
 
-  const renderItem = ({ item }: { item: tokenData }) => {
+  const renderItem = ({ item }: { item: tokendata }) => {
     const date = new Date(item.queue_date);
     const expires = item.expires_at ? new Date(item.expires_at) : null;
 
-  
     return (
       <View style={styles.card}>
-        
         <View>
           <View style={styles.topCardContent}>
             <View style={[styles.iconContainer, styles.greenIconBg]}>
@@ -95,40 +85,60 @@ if (incomingToken) {
           <View style={styles.tokenContent}>
             <CustomText>Token No :</CustomText>
             <CustomText style={{ fontSize: 24, marginStart: 15 }}>
-             {item.token_id}
+              {item.token_id}
             </CustomText>
           </View>
           <View style={styles.tokenContent}>
             <CustomText>Book Date:</CustomText>
-            <CustomText style={{ marginStart: 5 }}>{date.toLocaleString()}</CustomText>
+            <CustomText style={{ marginStart: 5 }}>
+              {date.toLocaleString()}
+            </CustomText>
           </View>
 
           <View style={styles.expire}>
             <CustomText style={{ marginEnd: 5 }}>expire in:</CustomText>
-            <Icon name="time-outline" size={16} iconFamily="Ionicons" color="#b81e1eff" />
-            <CustomText style={{ fontSize: 10, marginStart: 5, color: '#b81e1eff' }}>{expires?.toLocaleString()}</CustomText>
+            <Icon
+              name="time-outline"
+              size={16}
+              iconFamily="Ionicons"
+              color="#b81e1eff"
+            />
+            <CustomText
+              style={{ fontSize: 10, marginStart: 5, color: '#b81e1eff' }}
+            >
+              {expires?.toLocaleString()}
+            </CustomText>
           </View>
         </View>
       </View>
     );
   };
 
-  if (loading) return <ActivityIndicator style={{ marginTop: 24 }} size="large" />;
+  if (loading)
+    return <ActivityIndicator style={{ marginTop: 24 }} size="large" />;
 
   return (
     <View>
       <>
-        <View style={styles.cardContainer}>
+        <View style={[styles.cardContainer]}>
           <FlatList
             data={tokens}
             keyExtractor={item => item._id ?? String(item.token_id)}
+           showsVerticalScrollIndicator={false}
             renderItem={renderItem}
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
-            ListEmptyComponent={<Text style={styles.empty}>No booking found</Text>}
-            contentContainerStyle={tokens.length === 0 ? { flex: 1, justifyContent: 'center', alignItems: 'center' } : undefined}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            ListEmptyComponent={
+              <Text style={styles.empty}>No booking found</Text>
+            }
+            contentContainerStyle={
+              tokens.length === 0
+                ? { flex: 1, justifyContent: 'center', alignItems: 'center' }
+                : undefined
+            }
           />
         </View>
-      
       </>
 
       <CustomText style={styles.text2}>Made with ❤️ by Vivek Bisen</CustomText>
@@ -196,6 +206,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     padding: 10,
+    
   },
   text2: {
     opacity: 0.5,
@@ -206,7 +217,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 12,
     marginBottom: 20,
-    padding: 20,
+    margin:10,
+    padding:10,
     ...Platform.select({
       ios: {
         shadowColor: '#000',

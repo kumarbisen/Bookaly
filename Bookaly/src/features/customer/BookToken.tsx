@@ -18,16 +18,19 @@ import Icon from '@components/global/Icon';
 import { goBack, navigate, push, resetAndNavigate } from '@utils/NavigationUtils';
 import { Colors } from '@utils/Constants';
 import { booktoken } from '@service/BookingProvider';
+import { useAuthStore } from '@state/authStore';
 
 
 const BookToken = () => {
-  const { providerId } = collectData();
+  const { providerId,updateTokenData} = collectData() 
+  const {user} = useAuthStore()
   
 
   const handleToken=async()=>{
     try {
        const res = await booktoken(providerId);
-      navigate('Customerdashboard',{token :res.token})
+       updateTokenData(res.token);
+       resetAndNavigate('Customerdashboard');
     } catch (error) {
       console.log('Booking error', error);
     }
@@ -36,8 +39,7 @@ const BookToken = () => {
   
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#3ebcdc" />
-
+     
       <View style={styles.header}>
         <View style={styles.headerIconContainer}>
           <TouchableOpacity onPress={() => goBack()}>
@@ -96,13 +98,8 @@ const BookToken = () => {
         <View style={styles.receiverCard}>
           <View style={styles.receiverRow}>
             <Text style={styles.receiverLabel}>
-              TTN - <Text style={styles.receiverValue}>15th Token</Text>
+              User - <Text style={styles.receiverValue}>{user?.phone}</Text>
             </Text>
-          </View>
-
-          <View style={styles.facilityRow}>
-            <Text style={styles.receiverLabel}>User Name - </Text>
-            <Text style={styles.receiverValue}>Vivek kumar</Text>
           </View>
         </View>
 
@@ -130,10 +127,9 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#3ebcdc',
-    padding: 16,
+    padding:10,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: Platform.OS === 'android' ? 40 : 16,
   },
   headerIconContainer: {
     width: 50,
