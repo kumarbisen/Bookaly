@@ -23,7 +23,7 @@ if (RAZORPAY_KEY_ID && RAZORPAY_KEY_SECRET) {
 export const bookToken =async(req,reply)=>{
     try {
         const userId = req.user && req.user.userId;
-        // defensive: ensure body exists before destructuring (GET requests may not have a body)
+        
         if (!req.body) {
             return reply.code(400).send({ message: 'Request body is required.' });
         }
@@ -198,7 +198,7 @@ export const fetchtoken = async(req,reply)=>{
         status: 'Completed'
         
     }).sort({token_id:1}) //send the token booked by user in sequence
-    .populate('user_id', 'name phone_number');
+    .populate('user_id', 'phone  created_at');
 
     return reply.code(200).send({
         message:'provider queue retrieved sucessfully',

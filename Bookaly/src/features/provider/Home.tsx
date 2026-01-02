@@ -1,16 +1,22 @@
 
 import Header from '@components/provider/Header';
 import React from 'react'
-import {StatusBar, Text,View} from 'react-native'
+import {StatusBar, StyleSheet, Text,View} from 'react-native'
+import Content from './Content';
 
 
 const Home =()=>{
     return(
-        <View>
-        <StatusBar barStyle="light-content" backgroundColor="#3ebcdc" />
-        <Header/>
+        <View style={styles.container}>
+       <Header/>
+        <Content />
         </View>
        
     )
 }
 export default Home;
+const styles = StyleSheet.create({
+    container:{
+        flex:1
+    }
+})

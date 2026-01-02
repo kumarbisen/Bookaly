@@ -43,7 +43,7 @@ const CustomerLogin = () => {
 
         <View style={styles.provider} >
                     <Icon
-                      onPress={()=> navigate('ProviderHome')}
+                      onPress={()=> navigate('ProviderLogin')}
                       name="storefront-outline"
                       color={Colors.primary}
                       size={RFValue(35)}
@@ -74,7 +74,7 @@ const CustomerLogin = () => {
               value={phonenumber}
               cursorColor={Colors.primary}
               keyboardType="number-pad"
-              placeholder="7371015156"
+              placeholder="XXXXXXXX56"
               placeholderTextColor="#CCC"
             />
           </View>

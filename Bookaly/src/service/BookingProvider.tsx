@@ -14,12 +14,14 @@ export const booktoken=async(providerPublicId:string)=> {
 }
 
 
-// get token info  for user(provider,tokenNO)
 
+// get token for provider
 export const fetchTokens = async()=>{
     try{
         const response = await appAxios.get('/tokens/book');
         return response.data;
+       
+        
         
     }catch(error){
         console.log("Failed to fetch tokens", error);
@@ -27,4 +29,3 @@ export const fetchTokens = async()=>{
     }
 }
 
-// get token for provider

@@ -45,17 +45,17 @@ const providerSchema = new mongoose.Schema({
     ...userSchema.obj,
     email:{type:String, required:true, unique:true},
     password:{type:String, required:true},
-    phone:{type:Number, required:true},
+    phone:{type:Number, required:false},
     role:{type:String,enum:["Provider"],default:"Provider"},
     booking_fee: {
         type: Number,
-        required: true,
+        required: false,
         default: 0,
         min: 0
     },
     provider_id: {
         type: String,
-        required:true,
+        required:false,
         trim: true,
         lowercase: true,
     },

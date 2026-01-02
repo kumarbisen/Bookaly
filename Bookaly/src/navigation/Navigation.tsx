@@ -15,6 +15,7 @@ import ProfileScreen from '@features/customer/profileScreen';
 import BookedTokenScreen from '@features/customer/Favorate';
 
 import Favorate from '@features/customer/Favorate';
+import ProviderProfile from '@features/provider/ProviderProfile';
 
 
 
@@ -41,6 +42,7 @@ const Navigation =()=>{
           animation: 'slide_from_right' // Slides up
         }}></Stack.Screen>
             <Stack.Screen name='Favorate' component={Favorate}></Stack.Screen>
+            <Stack.Screen name='ProviderProfile' component={ProviderProfile}></Stack.Screen>
 
 
 

@@ -8,6 +8,7 @@ import { Colors } from '@utils/Constants';
 import { screenHeight, screenWidth } from '@utils/Scaling';
 import QRGereratorModel from '@components/models/QRGereratorModel';
 import { navigate } from '@utils/NavigationUtils';
+import CustomText from '@components/UI/CustomText';
 
 
 
@@ -24,11 +25,14 @@ const onClick = ()=>{
            <SafeAreaView/>
             <View 
                 style={[styles.flexRowBetween,styles.container]}>
-                <TouchableOpacity>
-                        <Icon iconFamily='Ionicons' name='menu' size={22} color='#fff'/>
+                <TouchableOpacity style={styles.dropdown}>
+                        <CustomText style={styles.dropdowntext}>My Store</CustomText>
+                        <Icon iconFamily='Ionicons'  name="caret-down-outline" size={22} color='#fff'/>
                 </TouchableOpacity>
+
+                
                 <Image 
-                source={require('../../assets/images/logo.png')}
+                source={require('../../assets/images/whitelogo.png')}
                 style={styles.logo}/>
                 <TouchableOpacity
                     onPress={onClick}>
@@ -61,6 +65,15 @@ const styles = StyleSheet.create({
     container: {
         padding: 10,
         zIndex: 4,
+    },
+    dropdown:{
+        flexDirection:'row',
+       
+    },
+    dropdowntext:{
+        color:'white',
+        fontSize:14,
+         marginHorizontal:5
     },
     
     logo: {
